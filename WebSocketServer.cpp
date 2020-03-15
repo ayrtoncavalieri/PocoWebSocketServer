@@ -56,13 +56,14 @@ int WebSocketServer::main(const std::vector<std::string>& args)
     }
     else
     {
+        //Uncomment the next block for secure socket
         /*Poco::Net::initializeSSL();
         Poco::SharedPtr<Poco::Net::InvalidCertificateHandler> pCert =
             new Poco::Net::ConsoleCertificateHandler(false);
         Poco::Net::Context::Ptr pContext = new Poco::Net::Context(
                 Poco::Net::Context::SERVER_USE,
-                "/home/ayrton/Documents/C/OpenSSLTest/key.pem",
-                "/home/ayrton/Documents/C/OpenSSLTest/cert.pem",
+                "insert_key_file_path",
+                "insert_cert_file_path",
                 "",
                 Poco::Net::Context::VERIFY_RELAXED,
                 9,
@@ -77,7 +78,7 @@ int WebSocketServer::main(const std::vector<std::string>& args)
 
         // set-up a server socket
         ServerSocket svs(port);
-        //SecureServerSocket svs(port, 64, pContext);
+        //SecureServerSocket svs(port, 64, pContext); // Uncomment for secure socket.
         svs.supportsIPv6() == true ? printf("IPv6\n") : printf("IPv4\n");
         // set-up a HTTPServer instance
         HTTPServer srv(new RequestHandlerFactory, pool, svs, new HTTPServerParams);
@@ -90,43 +91,3 @@ int WebSocketServer::main(const std::vector<std::string>& args)
     }
     return Application::EXIT_OK;
 }
-
-/*Server::Server(unsigned short port) : _port(port)
-{
-    Poco::Net::initializeSSL();
-    Poco::SharedPtr<Poco::Net::InvalidCertificateHandler> pCert;
-    Poco::Net::Context::Ptr pContext;
-    pCert = new Poco::Net::ConsoleCertificateHandler(false);
-    pContext = new Poco::Net::Context(
-            Poco::Net::Context::SERVER_USE,
-            "/home/ayrton/Documents/C/OpenSSLTest/key.pem",
-            "/home/ayrton/Documents/C/OpenSSLTest/cert.pem",
-            "",
-            Poco::Net::Context::VERIFY_RELAXED,
-            9,
-            false,
-            "ALL:!ADH:!LOW:!EXP:!MD5:@STRENGTH");
-    Poco::Net::SSLManager::instance().initializeClient(0, pCert, pContext);
-    // get parameters from configuration file
-    //unsigned short port = (unsigned short) config().getInt("WebSocketServer.port", 9980);
-    Timespan timeOut(0, 30000000);
-    svs = SecureServerSocket(_port, 64, pContext);
-    svs.setReceiveTimeout(timeOut);
-    svs.setSendTimeout(timeOut);
-    
-}
-
-bool Server::supportIPv6()
-{
-    return svs.supportsIPv6();
-}
-
-void Server::startSrv()
-{
-    
-}
-
-Server::~Server()
-{
-    //delete svs;
-}*/
