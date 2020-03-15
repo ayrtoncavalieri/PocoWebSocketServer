@@ -24,20 +24,5 @@ class WebSocketServer: public Poco::Util::ServerApplication
         bool _helpRequested;
 };
 
-/*
-class Server{
-    public:
-        Server(unsigned short port);
-        virtual ~Server();
-
-        bool supportIPv6();
-
-        void startSrv();
-
-    private:
-        unsigned short _port;
-        SecureServerSocket svs;
-};
-*/
 #endif 
 //SERVER_H
